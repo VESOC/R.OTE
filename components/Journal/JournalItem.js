@@ -1,11 +1,11 @@
 import { FaEdit } from 'react-icons/fa'
 import { useState } from 'react'
+import { Editor } from '@/components/Editor'
 
-export default function JournalItem({ id, day }) {
-  const [doEdit, setDoEdit] = useState(false)
-  const editState = () => {
-    setDoEdit(true)
-    console.log('edit state!')
+export default function JournalItem({ id, day, setEdit }) {
+  const editJournal = (id) => {
+    let journal = document.getElementById(id)
+    setEdit(true)
   }
   return (
     <div
@@ -16,15 +16,14 @@ export default function JournalItem({ id, day }) {
           : day === 'future'
           ? 'bg-white'
           : 'bg-yellow-100'
-      } flex`}
+      } flex h-16`}
     >
       <div className='w-1/12 flex justify-center'>
         <h1>{id}</h1>
       </div>
-      {doEdit && <div className='w-10/12'>Today was rainy.</div>}
-      {!doEdit && <div className='w-10/12'>Today no one was happy.</div>}
+      <div className='w-10/12'>Today no one was happy.</div>
       <div className='w-1/12 flex justify-center'>
-        <button onClick={editState}>
+        <button onClick={() => editJournal(id)}>
           <FaEdit />
         </button>
       </div>
