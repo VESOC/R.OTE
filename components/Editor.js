@@ -12,5 +12,5 @@ export default function Editor() {
 
   const { quillRef } = useQuill({ theme, modules, formats })
 
-  return <div className='h-full bg-gray-500' ref={quillRef}></div>
+  return <div className='bg-gray-500' ref={quillRef}></div>
 }

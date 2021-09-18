@@ -15,3 +15,7 @@
 .persist-style {
   @apply bg-white bg-yellow-100 bg-gray-500;
 }
+
+.bg {
+  background-image: linear-gradient(to bottom right, #f24333, #f4b9b8);
+}

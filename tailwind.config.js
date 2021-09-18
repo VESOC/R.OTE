@@ -3,9 +3,17 @@ module.exports = {
   darkMode: false, // or 'media' or 'class'
   theme: {
     extend: {
-      backgroundImage: (theme) => ({
-        'edit': "url('/edit_icon.svg')",
+      backgroundColor: (theme) => ({
+        ...theme('colors'),
+        'test': '#FD151B',
+        '1': '#f24333',
+        '2': '#f4b9b8',
       }),
+      colors: {
+        'test': '#FD151B',
+        '1': '#f24333',
+        '2': '#f4b9b8',
+      },
     },
   },
   variants: {
