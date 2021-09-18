@@ -1,6 +1,7 @@
 import ToDoInput from "@/components/Todo/TodoInput"
-import TodoItems from "./TodoItems"
+import TodoItems from "@/components/Todo/TodoItems"
 import { useState, useEffect } from "react"
+import TodoText from "@/components/Todo/TodoText"
 
 export default function TodoLayout() {
   const [todos, setTodos] = useState([])
@@ -46,6 +47,16 @@ export default function TodoLayout() {
     setTodoEditing(null)
   }
 
+  function doneTodo(id){
+    const updatedTodos = [...todos].map((todo) => {
+      if (todo.id === id) {
+        todo.done = !todo.done
+      }
+      return todo
+    })
+    setTodos(updatedTodos)
+  }
+
   return (
     <div className='md:w-1/2 p-5 bg-1 text-white h-full w-full bg-gradient-to-br from-4 to-9'>
       <main className='flex flex-col m-auto w-full h-full'>
@@ -67,28 +78,29 @@ export default function TodoLayout() {
           </div>
 
           {todos.map((todo) => (
-            <TodoItems key={todo.id} className='todo'>
+            <TodoItems>
               <div className='todo-text' key={todo}>
                 {todo.id === todoEditing ? (
                   <input
                     className='text-gray-500'
                     type='text'
                     onChange={(e) => setEditingText(e.target.value)}
+                    value={editingText}
                   />
                 ) : (
-                  <div>{todo.text}</div>
+                  <TodoText text={todo.text} done={todo.done}></TodoText>
                 )}
               </div>
-              <div className='todo-actions'>
+              <div>
+                <button className='bg-blue-500 rounded-full px-4 hover:bg-green-500' onClick={() => {doneTodo(todo.id)}}>Done</button>
                 {todo.id === todoEditing ? (
-                  <button className='bg-blue-300 rounded-full px-4' onClick={() => submitEdits(todo.id)}>
-                    Submit Edits
+                  <button className='bg-blue-500 rounded-full px-4 hover:bg-blue-400' onClick={() => submitEdits(todo.id)}>
+                    ✔
                   </button>
                 ) : (
-                  <button className='bg-blue-300 rounded-full px-4' onClick={() => setTodoEditing(todo.id)}>Edit</button>
+                  <button className='bg-blue-500 rounded-full px-4 hover:bg-blue-400' onClick={() => {setTodoEditing(todo.id); setEditingText(todo.text)}}>Edit</button>
                 )}
-
-                <button className='bg-gray-300 rounded-full px-4' onClick={() => deleteTodo(todo.id)}>Delete</button>
+                <button className='bg-blue-500 rounded-full px-4 hover:bg-red-400' onClick={() => deleteTodo(todo.id)}>✖</button>
               </div>
             </TodoItems>
           ))}

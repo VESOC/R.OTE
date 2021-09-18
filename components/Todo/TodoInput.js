@@ -6,6 +6,7 @@ export default function TodoInput({ addItem }) {
     const newTodo = {
       id: new Date().getTime(),
       text: todo,
+      done: false,
     };
     addItem(newTodo)
     setTodo("")
